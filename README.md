@@ -19,5 +19,5 @@ Running the application
     }
 
 [![Node.js CI](https://github.com/don336/Maintenance-Tracker/actions/workflows/node.js.yml/badge.svg)](https://github.com/don336/Maintenance-Tracker/actions/workflows/node.js.yml)
-[![Build Status](https://app.travis-ci.com/don336/Maintenance-Tracker.svg?branch=main)](https://travis-ci.org/don336/chip8)
+[![Coverage Status](https://coveralls.io/repos/github/don336/Maintenance-Tracker/badge.svg?branch=main)](https://coveralls.io/github/don336/Maintenance-Tracker?branch=main)
 
