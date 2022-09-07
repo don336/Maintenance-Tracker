@@ -8,7 +8,8 @@
         "start": "nodemon babel-node src/backend/index.js",
         "dev": "env-cmd -f src/backend/config/dev.env nodemon --watch src --exec babel-node src/backend/index.js",
         "test": "env-cmd -f src/backend/config/test.env  jest --forceExit --detectOpenHandles --coverage",
-        "lint": "prettier --write ."
+        "lint": "prettier --write .",
+        "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls"
     },
     "repository": {
         "type": "git",
@@ -39,5 +40,12 @@
         "@babel/node": "^7.18.10",
         "@babel/preset-env": "^7.18.10",
         "supertest": "^6.2.4"
+    },
+    "jest": {
+        "collectCoverageFrom": [
+            "**/*.js",
+            "!data/keyMap.js",
+            "!/node_modules/"
+        ]
     }
 }
