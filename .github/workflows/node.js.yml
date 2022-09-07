@@ -22,9 +22,16 @@ jobs:
       uses: actions/setup-node@v3
     - name: Start MongoDB
       uses: supercharge/mongodb-github-action@1.8.0
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
         cache: 'npm'
+    - name: npm install, make test-coverage
+      run: |
+        npm install
+        make test-coverage
     - run: npm ci
     - run: npm install
     - run: npm run build --if-present
