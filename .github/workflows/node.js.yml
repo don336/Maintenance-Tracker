@@ -31,7 +31,7 @@ jobs:
     - name: npm install, make test-coverage
       run: |
         npm install
-        make test-coverage
+        npm run coveralls
     - run: npm ci
     - run: npm install
     - run: npm run build --if-present
