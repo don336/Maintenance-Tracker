@@ -4,8 +4,8 @@ Getting Started
 
 This is an example of how you may give instructions on setting up this project locally on your local machine.
 
-Perequisites
-  This is an example on how you can install all dependecies needed for the application to run it's server
+Perequisites:
+  Example on how you can install all dependecies needed for the application to run it's server
   1. npm install
   2. yarn install
 
