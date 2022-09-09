@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import { errors } from "celebrate";
 import mongoose from "mongoose";
 import userRequests from "./routes/userRequest.js"
+import userAuth from "./routes/auth.js"
 import dotenv from "dotenv/config"
 // Connecting to TrackerDB
 mongoose.connect(process.env.DB_CONNECT, ()=>{
@@ -14,6 +15,7 @@ const app = express()
 app.use(bodyParser.json())
 // MiddleWares
 app.use("/api/v1/users/requests", userRequests)
+app.use("/api/v1/auth/user", userAuth)
 app.get("/", (req, res)=>{
   res.send("Home Page")
 });
