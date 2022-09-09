@@ -38,8 +38,13 @@ class controllers {
 
   static async createRequest (req, res){
     try {
-      const { title, description } = req.body
+      const { title, description, approved } = req.body
 
+      if(approved === false){
+        return res.status(400).json({
+          message: "request disapproved"
+        })
+      }
       const newReq = await Request.create({
         requestId: uuidv4(),
         title,
@@ -59,8 +64,14 @@ class controllers {
     try {
       const { id } = req.params
       const { title, description } = req.body
-
-      const updateReq = await Request.updateOne(
+      const request  = await Request.findById({ _id:id })
+      const approve = request.approved
+      if(approve === true){
+        return res.status(500).json({
+          message: "Request Approved cannot be edited"
+        })
+      }
+     await Request.updateOne(
         {_id:id},
         {$set: 
           {
@@ -75,8 +86,101 @@ class controllers {
         })
     }
     catch(err){
+     return res.status(400).json({
+      err: "Request not found"
+     })
+    }
+  }
+
+  static async approveRequest (req, res) {
+    try {
+      const { id } = req.params
+      const { approved }= req.body
+
+      const request = await Request.findOne({_id: id})
+
+      if(!request){
+        return res.status(400).json({
+          Err: "Request Not Found"
+        })
+      }
+      await Request.updateOne({_id:id},
+        {
+          $set: {
+            approved: approved
+          },
+        },
+        {new: true}
+      )
+      return res.status(201).json({
+        message: "Request Approved"
+      })
+    }
+    catch(err){
       return res.status(400).json({
-        err: "Request not found"
+        Err: "Request Not Found"
+      })
+    }
+  }
+
+  static async disapproveRequest (req, res) {
+    try {
+      const { id } = req.params
+      const { approved }= req.body
+
+      const request = await Request.findOne({_id: id})
+
+      if(!request){
+        return res.status(400).json({
+          Err: "Request Not Found"
+        })
+      }
+      await Request.updateOne({_id:id},
+        {
+          $set: {
+            approved: approved
+          },
+        },
+        {new: true}
+      )
+      return res.status(201).json({
+        message: "Request disapproved"
+      })
+    }
+    catch(err){
+      return res.status(400).json({
+        Err: "Request Not Found"
+      })
+    }
+  }
+
+  static async resolveRequest (req, res) {
+    try {
+      const { id } = req.params
+      const { resolved }= req.body
+
+      const request = await Request.findOne({_id: id})
+
+      if(!request){
+        return res.status(400).json({
+          Err: "Request Not Found"
+        })
+      }
+      await Request.updateOne({_id:id},
+        {
+          $set: {
+            resolved: resolved
+          },
+        },
+        {new: true}
+      )
+      return res.status(201).json({
+        message: "Request resolved"
+      })
+    }
+    catch(err){
+      return res.status(400).json({
+        Err: "Request Not Found"
       })
     }
   }
